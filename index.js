@@ -42,7 +42,8 @@ get_season_num();
 
 function update_PRexpectedJSON() {
 	var req_options = {
-		url: 'https://asia.wows-numbers.com/ja/personal/rating/expected/json/',
+		url: 'https://moon-light-oasis.net/wp-content/uploads/xvm_files/expected.json',
+		/*https://asia.wows-numbers.com/ja/personal/rating/expected/json/*/
 		method: 'GET',
 		json: true
 	}
