@@ -1,4 +1,4 @@
-const wsp_version = '1.3.3';
+const wsp_version = '1.3.4';
 const MAX_RETRY = 5;
 const images_path = 'images/';
 const images_suffix = '.png';
@@ -1632,7 +1632,9 @@ app.controller('TeamStatsCtrl', ['$scope', '$translate', '$filter', '$rootScope'
 
 							try {
 								// ship type
+								if(ship_info.data[shipID1] == null) return 1;
 								var type1 = ship_info.data[shipID1].type;
+								if(ship_info.data[shipID2] == null) return -1;
 								var type2 = ship_info.data[shipID2].type;
 								if( type1 > type2 ) return 1;
 								if( type1 < type2 ) return -1;
@@ -1643,11 +1645,11 @@ app.controller('TeamStatsCtrl', ['$scope', '$translate', '$filter', '$rootScope'
 								if( tier1 < tier2 ) return 1;
 								if( tier1 > tier2 ) return -1;
 
-                                // Nation
-                                var nation1 = api.nation_for_sort(ship_info.data[shipID1].nation);
-                                var nation2 = api.nation_for_sort(ship_info.data[shipID2].nation);
-                                if( nation1 > nation2 ) return 1;
-                                if( nation1 < nation2 ) return -1;
+								// Nation
+								var nation1 = api.nation_for_sort(ship_info.data[shipID1].nation);
+								var nation2 = api.nation_for_sort(ship_info.data[shipID2].nation);
+								if( nation1 > nation2 ) return 1;
+								if( nation1 < nation2 ) return -1;
 
 							} catch(e) {
 								console.log('ileagal ship ID. seems old data-type JSON file');
