@@ -8,7 +8,7 @@
 		"uri": "https://profile.worldofwarships.%%REGION%%/statistics/%%ID%%/"
 	},
 	{
-		"site": "WoWs Stats & Nmbers",
+		"site": "WoWs Stats & Numbers",
 		"uri": "https://%%REGION%%.wows-numbers.com/player/%%ID%%,%%NAME%%/"
 	},
 	{
