@@ -26,7 +26,7 @@ Figure 2 - Settings window.
 - You can switch stats site link from 6 stats site as follows on IGN strings via settings window (Figure 2).
     * "World of Warships (official)"
 	* "World of Warships (In-GAME)"
-    * "WoWs Stats & Nmbers"
+    * "WoWs Stats & Numbers"
     * "Proships.ru"
     * "WoWs Statinfo"
 	* "WoWStats.org"
