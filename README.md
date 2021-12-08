@@ -9,7 +9,7 @@ Figure 1 - Main window.
 
 Figure 2 - Settings window.
 
-![Screenshot2](https://i.gyazo.com/af65e5eb720dd5ba3258ddd9124f83c0.png)
+![Screenshot2](https://i.gyazo.com/eaf22c9980fa879ffc4fa4776982c763.png)
 
 # Functionality
 - Show stats information of all matching players and ships on the random battle(pvp).
