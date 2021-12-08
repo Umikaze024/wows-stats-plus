@@ -1,4 +1,4 @@
-const wsp_version = '1.3.5';
+const wsp_version = '1.3.6';
 const MAX_RETRY = 5;
 const images_path = 'images/';
 const images_suffix = '.png';
@@ -795,9 +795,7 @@ api.shiptype_s = function(type, value) {
 
 api.nation_s = function(str) {
 var ntname = [
-	["japan","JP"] ,["usa","US"] ,["ussr","SN"],["germany","KM"] ,
-	["uk","RN"],["france","MN"],["netherlands","NL"],["europe","EU"],["pan_asia","PA"] ,
-	["italy","IT"],["pan_america","PM"],["commonwealth","CW"]
+	["usa","US"],["uk","RN"],["france","MN"],["germany","KM"],["netherlands","NL"],["italy","IT"],["japan","JP"],["ussr","SN"],["spain","AE"],["commonwealth","CW"],["pan_america","PM"],["europe","EU"],["pan_asia","PA"]
 ];
 
 	for (var i=0; i<ntname.length ; i++) {
@@ -811,9 +809,7 @@ var ntname = [
 
 api.nation_for_sort = function(str) {
 var ntname = [
-	["japan","J"] ,["usa","A"] ,["ussr","R"],["germany","G"] ,
-	["uk","B"],["france","F"],["netherlands","H"],["europe","W"],["pan_asia","Z"] ,
-	["italy","I"],["pan_america","V"],["commonwealth","U"]
+	["usa","A"],["uk","B"],["france","F"],["germany","G"],["netherlands","H"],["italy","I"],["japan","J"],["ussr","R"],["spain","S"],["commonwealth","U"],["pan_america","V"],["europe","W"],["pan_asia","Z"]
 ];
 
 	for (var i=0; i<ntname.length ; i++) {
