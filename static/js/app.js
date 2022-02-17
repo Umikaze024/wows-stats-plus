@@ -1,4 +1,4 @@
-const wsp_version = '1.3.7';
+const wsp_version = '1.3.8';
 const MAX_RETRY = 5;
 const images_path = 'images/';
 const images_suffix = '.png';
