@@ -791,6 +791,9 @@ api.shiptype_s = function(type, value) {
 	else if(value == 'AirCarrier') {
 		return 'CV';
 	}
+	else if(value == 'Submarine') {
+		return 'SS';
+	}
 	else return value;
 }
 
