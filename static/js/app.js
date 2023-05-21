@@ -1,4 +1,4 @@
-const wsp_version = '1.3.13';
+const wsp_version = '1.3.14';
 const wows_version = '12.3';
 const MAX_RETRY = 5;
 const images_path = 'images/';
