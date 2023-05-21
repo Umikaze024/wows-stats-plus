@@ -1,5 +1,5 @@
 const wsp_version = '1.3.14';
-const wows_version = '12.3';
+const wows_version = '12.3.1';
 const MAX_RETRY = 5;
 const images_path = 'images/';
 const images_suffix = '.png';
