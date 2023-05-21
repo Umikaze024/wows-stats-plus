@@ -233,6 +233,9 @@ background-color: #606010;
 .player .Destroyer_bg {
 background-color: #104080;
 }
+.player .Submarine_bg {
+background-color: #20602b;
+}
 
 .player .class1 {
 color: #fe0e00;
