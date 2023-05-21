@@ -378,7 +378,8 @@ function shiptype(val1,val2,val3,val4) {
 	var elements = document.getElementsByName("Cruiser");
 	for (var i=0; i<elements.length ; i++) {
 		document .getElementsByName( "Cruiser" )[i]. style . display = cl;
-	}	var elements = document.getElementsByName("Destroyer");
+	}
+	var elements = document.getElementsByName("Destroyer");
 	for (var i=0; i<elements.length ; i++) {
 		document .getElementsByName( "Destroyer" )[i]. style . display = dd;
 	}
