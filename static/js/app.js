@@ -1,4 +1,5 @@
 const wsp_version = '1.3.13';
+const wows_version = '12.3';
 const MAX_RETRY = 5;
 const images_path = 'images/';
 const images_suffix = '.png';
@@ -1288,6 +1289,7 @@ return api;
 
 app.controller('TeamStatsCtrl', ['$scope', '$translate', '$filter', '$rootScope', '$http', '$q', 'api', function ($scope, $translate, $filter, $rootScope, $http, $q, api) {
 	$scope.version = wsp_version;
+	$scope.wows_version = wows_version;
 	$scope.inGame = false;
 	$scope.dateTime = "";
   	$scope.data = {};
