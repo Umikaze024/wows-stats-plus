@@ -463,7 +463,7 @@ router.get('/arena', jsonParser, function(req, res) {
 				if (arg_mode) {
 					fs.readFile(arenaJson, function read(error, obj) {
 					    if (!error) {
-							var buffer = new Buffer(obj, 'binary');
+							var buffer = Buffer.from(obj, 'binary');
 							var start_pos = 12;
 							var end_pos = buffer[9]*256 + buffer[8] + 12;
 //							console.log("%s%s %d", buffer[9].toString(16), buffer[8].toString(16), end_pos);

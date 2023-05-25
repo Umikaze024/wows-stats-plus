@@ -1,4 +1,5 @@
-const wsp_version = '1.3.12';
+const wsp_version = '1.3.14';
+const wows_version = '12.3.1';
 const MAX_RETRY = 5;
 const images_path = 'images/';
 const images_suffix = '.png';
@@ -377,7 +378,8 @@ function shiptype(val1,val2,val3,val4) {
 	var elements = document.getElementsByName("Cruiser");
 	for (var i=0; i<elements.length ; i++) {
 		document .getElementsByName( "Cruiser" )[i]. style . display = cl;
-	}	var elements = document.getElementsByName("Destroyer");
+	}
+	var elements = document.getElementsByName("Destroyer");
 	for (var i=0; i<elements.length ; i++) {
 		document .getElementsByName( "Destroyer" )[i]. style . display = dd;
 	}
@@ -789,6 +791,9 @@ api.shiptype_s = function(type, value) {
 	}
 	else if(value == 'AirCarrier') {
 		return 'CV';
+	}
+	else if(value == 'Submarine') {
+		return 'SS';
 	}
 	else return value;
 }
@@ -1288,6 +1293,7 @@ return api;
 
 app.controller('TeamStatsCtrl', ['$scope', '$translate', '$filter', '$rootScope', '$http', '$q', 'api', function ($scope, $translate, $filter, $rootScope, $http, $q, api) {
 	$scope.version = wsp_version;
+	$scope.wows_version = wows_version;
 	$scope.inGame = false;
 	$scope.dateTime = "";
   	$scope.data = {};
