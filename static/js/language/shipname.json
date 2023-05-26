@@ -160,10 +160,13 @@
 		"Vicente Guerrero": "V. Guerrero",
 		"Almirante Cochrane": "Almte. Cochrane",
 		"Coronel Bolognesi": "Cnel. Bolognesi",
+		"Ignacio Allende": "I. Allende",
 		"Almirante Abreu": "Alm. Abreu",
 		"Almirante Grau": "Almte. Grau",
 		"Lambros Katsonis": "L. Katsonis",
-		"Błyskawica": "Blyskawica"
+		"Błyskawica": "Blyskawica",
+		"Dmitry Pozharsky": "D. Pozharsky",
+		"Almirante Cervera": "Almte. Cervera"
 	},
 	"en": {
 		"Franklin D. Roosevelt": "F. D. Roosevelt",
@@ -233,9 +236,12 @@
 		"Vicente Guerrero": "V. Guerrero",
 		"Almirante Cochrane": "Almte. Cochrane",
 		"Coronel Bolognesi": "Cnel. Bolognesi",
+		"Ignacio Allende": "I. Allende",
 		"Almirante Abreu": "Alm. Abreu",
 		"Almirante Grau": "Almte. Grau",
-		"Lambros Katsonis": "L. Katsonis"
+		"Lambros Katsonis": "L. Katsonis",
+		"Dmitry Pozharsky": "D. Pozharsky",
+		"Almirante Cervera": "Almte. Cervera"
 	},
 	"zh-tw": {
 		"Franklin D. Roosevelt": "F.D. Roosevelt",
@@ -397,6 +403,7 @@
 		"Vicente Guerrero": "V. Guerrero",
 		"Almirante Cochrane": "Almte. Cochrane",
 		"Coronel Bolognesi": "Cnel. Bolognesi",
+		"Ignacio Allende": "I. Allende",
 		"Almirante Abreu": "Alm. Abreu",
 		"Almirante Grau": "Almte. Grau",
 		"Lambros Katsonis": "L. Katsonis",
@@ -416,7 +423,10 @@
 		"Anshan": "鞍山",
 		"Loyang": "洛陽",
 		"Fenyang": "汾陽",
-		"Loyang B": "洛陽 B"
+		"Loyang B": "洛陽 B",
+		"Dmitry Pozharsky": "D. Pozharsky",
+		"Lüshun": "旅順",
+		"Almirante Cervera": "Almte. Cervera"
 	},
 	"it": {
 		"Franklin D. Roosevelt": "F. D. Roosevelt",
@@ -487,9 +497,12 @@
 		"Vicente Guerrero": "V. Guerrero",
 		"Almirante Cochrane": "Almte. Cochrane",
 		"Coronel Bolognesi": "Cnel. Bolognesi",
+		"Ignacio Allende": "I. Allende",
 		"Almirante Abreu": "Alm. Abreu",
 		"Almirante Grau": "Almte. Grau",
-		"Lambros Katsonis": "L. Katsonis"
+		"Lambros Katsonis": "L. Katsonis",
+		"Dmitry Pozharsky": "D. Pozharsky",
+		"Almirante Cervera": "Almte. Cervera"
 	},
 	"ru": {
 		"Franklin D. Roosevelt": "F. D. Roosevelt",
@@ -633,8 +646,11 @@
 		"Vicente Guerrero": "V. Guerrero",
 		"Almirante Cochrane": "Almte. Cochrane",
 		"Coronel Bolognesi": "Cnel. Bolognesi",
+		"Ignacio Allende": "I. Allende",
 		"Almirante Abreu": "Alm. Abreu",
 		"Almirante Grau": "Almte. Grau",
-		"Lambros Katsonis": "L. Katsonis"
+		"Lambros Katsonis": "L. Katsonis",
+		"Dmitry Pozharsky": "Д. Пожарский",
+		"Almirante Cervera": "Almte. Cervera"
 	}
 }
