@@ -105,6 +105,38 @@ async function fetchShips(api, prog){
     return new Promise((resolve, reject) => {resolve(ships)});
 }
 
+/**
+ * Retrieve available modules data from a specified page
+ * https://developers.wargaming.net/reference/all/wows/encyclopedia/modules/
+ * @param {Object} api {url: apiBaseURL, key: apiKey}
+ * @param {Number} page default: 1
+ */
+async function _fetchModulesPiece(api, page = 1){
+    const apiCall = api.url + '/wows/encyclopedia/modules/?application_id=' + api.key + '&language=en&limit=100&page_no=' + page;
+    return _fetchAPI(apiCall);
+}
+
+/**
+ * Retrieve all available modules data from the API
+ * https://developers.wargaming.net/reference/all/wows/encyclopedia/modules/
+ * @param {Object} api {url: apiBaseURL, key: apiKey}
+ * @param {object} prog Functions that change progress
+ */
+async function fetchModules(api, prog){
+    const first_page = await _fetchModulesPiece(api);
+    const modules = first_page.data;
+    const meta = first_page.meta;
+    let count = meta.count;
+    let page = meta.page + 1;
+    prog(meta.total, count);
+    for (; page <= meta.page_total; page++){
+        const result = await _fetchModulesPiece(api, page);
+        count += result.meta.count;
+        Object.assign(modules, result.data);
+        prog(meta.total, count);
+    }
+    return new Promise((resolve, reject) => {resolve(modules)});
+}
 
 const app = angular.module('fetchShipsSpec', []);
 
@@ -129,6 +161,14 @@ app.controller('progress', ['$scope', '$timeout', function($scope, $timeout){
     .then((shipsData) => { // Save API data into json file
         const saveShipProg = setProgress($scope ,$timeout, 'saving');
         saveJson(shipsData, shipSpecDir + 'ships.json', saveShipProg)
+    })
+    .then(() => { // Fetch modules list from API
+        const fetchModulesProg = setProgress($scope ,$timeout, 'Retrieving list of available modules');
+        return fetchModules(api, fetchModulesProg);
+    })
+    .then((shipsData) => { // Save API data into json file
+        const saveModulesProg = setProgress($scope ,$timeout, 'saving');
+        saveJson(shipsData, shipSpecDir + 'modules.json', saveModulesProg)
     })
     .catch((e) => {
         console.error(e);
