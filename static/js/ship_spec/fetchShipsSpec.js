@@ -166,9 +166,9 @@ app.controller('progress', ['$scope', '$timeout', function($scope, $timeout){
         const fetchModulesProg = setProgress($scope ,$timeout, 'Retrieving list of available modules');
         return fetchModules(api, fetchModulesProg);
     })
-    .then((shipsData) => { // Save API data into json file
+    .then((modulesData) => { // Save API data into json file
         const saveModulesProg = setProgress($scope ,$timeout, 'saving');
-        saveJson(shipsData, shipSpecDir + 'modules.json', saveModulesProg)
+        saveJson(modulesData, shipSpecDir + 'modules.json', saveModulesProg)
     })
     .catch((e) => {
         console.error(e);
