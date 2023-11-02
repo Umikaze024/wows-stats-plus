@@ -13,7 +13,7 @@ const coolTimer = () => {
 * @param {object} $timeout $timeout in Angular.js
 * @param {string} message Description of new progress
 */
-function setProgress($scope, $timeout, message){
+function setProgress($scope, $timeout, message) {
     const newProg = {
         total: 0,
         count: 0,
@@ -43,8 +43,8 @@ function setProgress($scope, $timeout, message){
  * @param {string} path Relative file path from web root directory (static)
  * @param {object} prog Functions that change progress
  */
-async function saveJson(json, path, prog){
-    prog(1,0);
+async function saveJson(json, path, prog) {
+    prog(1, 0);
     await fetch('/api/save_json', {
         method: 'post',
         headers: {
@@ -53,7 +53,7 @@ async function saveJson(json, path, prog){
         },
         body: JSON.stringify(json)
     });
-    prog(1,1);
+    prog(1, 1);
 }
 
 /**
@@ -61,10 +61,10 @@ async function saveJson(json, path, prog){
  * @param {string} path Relative file path from web root directory (static)
  * @param {object} prog Functions that change progress
  */
-async function loadJson(path, prog){
-    prog(1,0);
+async function loadJson(path, prog) {
+    prog(1, 0);
     return await fetch(path).then(function (data) {
-        prog(1,1);
+        prog(1, 1);
         return data.json();
     })
 }
@@ -75,7 +75,7 @@ async function loadJson(path, prog){
  * and the API results are returned at the end of the longer timer.
  * @param {string} apiCall URL to retrieve results with fetch
  */
-async function _fetchAPI(apiCall){
+async function _fetchAPI(apiCall) {
     return await Promise.all([fetch(apiCall), coolTimer()])
         .then((res) => {
             const [apiResult] = res.filter(v => v);
@@ -88,10 +88,10 @@ async function _fetchAPI(apiCall){
 /**
  * Retrieve ship data from a specified page
  * https://developers.wargaming.net/reference/all/wows/encyclopedia/ships/
- * @param {Object} api {url: apiBaseURL, key: apiKey}
- * @param {Number} page default: 1
+ * @param {object} api {url: apiBaseURL, key: apiKey}
+ * @param {number} page default: 1
  */
-async function _fetchShipsPiece(api, page = 1){
+async function _fetchShipsPiece(api, page = 1) {
     const apiCall = api.url + '/wows/encyclopedia/ships/?application_id=' + api.key + '&language=en&limit=100&page_no=' + page;
     return _fetchAPI(apiCall);
 }
@@ -99,32 +99,32 @@ async function _fetchShipsPiece(api, page = 1){
 /**
  * Retrieve all available ship data from the API
  * https://developers.wargaming.net/reference/all/wows/encyclopedia/ships/
- * @param {Object} api {url: apiBaseURL, key: apiKey}
+ * @param {object} api {url: apiBaseURL, key: apiKey}
  * @param {object} prog Functions that change progress
  */
-async function fetchShips(api, prog){
+async function fetchShips(api, prog) {
     const first_page = await _fetchShipsPiece(api);
     const ships = first_page.data;
     const meta = first_page.meta;
     let count = meta.count;
     let page = meta.page + 1;
     prog(meta.total, count);
-    for (; page <= meta.page_total; page++){
+    for (; page <= meta.page_total; page++) {
         const result = await _fetchShipsPiece(api, page);
         count += result.meta.count;
         Object.assign(ships, result.data);
         prog(meta.total, count);
     }
-    return new Promise((resolve, reject) => {resolve(ships)});
+    return new Promise((resolve, reject) => { resolve(ships) });
 }
 
 /**
  * Retrieve available modules data from a specified page
  * https://developers.wargaming.net/reference/all/wows/encyclopedia/modules/
- * @param {Object} api {url: apiBaseURL, key: apiKey}
- * @param {Number} page default: 1
+ * @param {object} api {url: apiBaseURL, key: apiKey}
+ * @param {number} page default: 1
  */
-async function _fetchModulesPiece(api, page = 1){
+async function _fetchModulesPiece(api, page = 1) {
     const apiCall = api.url + '/wows/encyclopedia/modules/?application_id=' + api.key + '&language=en&limit=100&page_no=' + page;
     return _fetchAPI(apiCall);
 }
@@ -132,23 +132,23 @@ async function _fetchModulesPiece(api, page = 1){
 /**
  * Retrieve all available modules data from the API
  * https://developers.wargaming.net/reference/all/wows/encyclopedia/modules/
- * @param {Object} api {url: apiBaseURL, key: apiKey}
+ * @param {object} api {url: apiBaseURL, key: apiKey}
  * @param {object} prog Functions that change progress
  */
-async function fetchModules(api, prog){
+async function fetchModules(api, prog) {
     const first_page = await _fetchModulesPiece(api);
     const modules = first_page.data;
     const meta = first_page.meta;
     let count = meta.count;
     let page = meta.page + 1;
     prog(meta.total, count);
-    for (; page <= meta.page_total; page++){
+    for (; page <= meta.page_total; page++) {
         const result = await _fetchModulesPiece(api, page);
         count += result.meta.count;
         Object.assign(modules, result.data);
         prog(meta.total, count);
     }
-    return new Promise((resolve, reject) => {resolve(modules)});
+    return new Promise((resolve, reject) => { resolve(modules) });
 }
 
 function getProperty(object, propertyPath) {
@@ -156,7 +156,7 @@ function getProperty(object, propertyPath) {
     let result = object;
     const propertyArray = propertyPath.split('.');
     for (let i = 0; i <= propertyArray.length - 1; i += 1) {
-        if (propertyArray[i] === '' ) { return undefined; }
+        if (propertyArray[i] === '') { return undefined; }
         if (result[propertyArray[i]] === null) { return undefined; }
         if (typeof result[propertyArray[i]] === 'undefined') { return undefined; }
         result = result[propertyArray[i]];
@@ -169,12 +169,12 @@ function getProperty(object, propertyPath) {
  * @param {object} api {url: apiBaseURL, key: apiKey}
  * @param {object} prog Functions that change progress
  */
-function _mergeModulesToShip(moduleTree, modules){
+function _mergeModulesToShip(moduleTree, modules) {
     const newTree = {};
-    for (const part of Object.keys(moduleTree)){
+    for (const part of Object.keys(moduleTree)) {
         const attachables = moduleTree[part];// arr
         const partMod = {};
-        for (const mod of attachables){
+        for (const mod of attachables) {
             partMod[mod] = modules[mod];
         }
         newTree[part] = partMod
@@ -182,42 +182,42 @@ function _mergeModulesToShip(moduleTree, modules){
     return newTree;
 }
 
-class ShipSpecFactory{
-    constructor(ship, modules){
+class ShipSpecFactory {
+    constructor(ship, modules) {
         this.defDetect_ = getProperty(ship, 'default_profile.concealment.detect_distance_by_ship') || 0;
         this.upgrades_ = ship.upgrades;
         this.modules_ = _mergeModulesToShip(ship.modules, modules)
     }
 
-    get defaultDetect(){
+    get defaultDetect() {
         return this.defDetect_
     }
 
-    get bestDetect(){
+    get bestDetect() {
         return this.calcBestDetect()
     }
 
-    get maxSpeed(){
+    get maxSpeed() {
         return this.selectFastestEngineSpeed()
     }
 
-    get torpedoes(){
+    get torpedoes() {
         return this.sortTorpedoes();
     }
 
-    get maxArtilleryRange(){
+    get maxArtilleryRange() {
         return this.calcMaxArtilleryRange(this.selectMaxArtilleryRange())
     }
 
-    calcBestDetect(){
-        const upgCoef = this.upgrades_.includes(4265791408) ? 0.9: 1;
+    calcBestDetect() {
+        const upgCoef = this.upgrades_.includes(4265791408) ? 0.9 : 1;
         // base * Commanders'Skill * ConcealmentUpgrade
         return Math.round(this.defDetect_ * 0.9 * upgCoef * 100) / 100;
     }
 
-    selectFastestEngineSpeed(){
+    selectFastestEngineSpeed() {
         const engines = getProperty(this.modules_, 'engine');
-        if (engines === undefined){
+        if (engines === undefined) {
             return 0;
         }
         const speeds = Object.keys(engines).map((engineId) => {
@@ -226,9 +226,9 @@ class ShipSpecFactory{
         return Math.max(...speeds);
     }
 
-    sortTorpedoes(){
+    sortTorpedoes() {
         const torpedoes = getProperty(this.modules_, 'torpedoes');
-        if (torpedoes === undefined){
+        if (torpedoes === undefined) {
             return [];
         }
         return Object.keys(torpedoes).map((torpedoId) => {
@@ -236,26 +236,26 @@ class ShipSpecFactory{
         }).sort((a, b) => { // Range > Speed > maxDamage
             const a_range = getProperty(a, 'distance') || 0;
             const b_range = getProperty(b, 'distance') || 0;
-            if (a_range !== b_range){
-                return (a_range < b_range) ? 1: -1;
+            if (a_range !== b_range) {
+                return (a_range < b_range) ? 1 : -1;
             }
             const a_speed = getProperty(a, 'torpedo_speed') || 0;
             const b_speed = getProperty(b, 'torpedo_speed') || 0;
-            if (a_speed !== b_speed){
-                return (a_speed < b_speed) ? 1: -1;
+            if (a_speed !== b_speed) {
+                return (a_speed < b_speed) ? 1 : -1;
             }
             const a_damage = getProperty(a, 'max_damage') || 0;
             const b_damage = getProperty(b, 'max_damage') || 0;
-            if (a_damage !== b_damage){
-                return (a_damage < b_damage) ? 1: -1;
+            if (a_damage !== b_damage) {
+                return (a_damage < b_damage) ? 1 : -1;
             }
             return 0;
         })
     }
 
-    selectMaxArtilleryRange(){
+    selectMaxArtilleryRange() {
         const fireCtrls = getProperty(this.modules_, 'fire_control');
-        if (fireCtrls === undefined){
+        if (fireCtrls === undefined) {
             return 0;
         }
         const range = Object.keys(fireCtrls).map((fireCtrlId) => {
@@ -264,7 +264,7 @@ class ShipSpecFactory{
         return Math.max(...range);
     }
 
-    calcMaxArtilleryRange(defaultRange){
+    calcMaxArtilleryRange(defaultRange) {
         // Calculate corrections due to upgrades and commander skills
         // It seems that there are almost no cases where you want to know the exact maximum range of the artillery,
         // so the default value is currently returned.
@@ -277,7 +277,7 @@ class ShipSpecFactory{
  * @param {object} api {url: apiBaseURL, key: apiKey}
  * @param {object} prog Functions that change progress
  */
-function makeShipSpec(ships, modules, prog){
+function makeShipSpec(ships, modules, prog) {
     const specs = {}
     const total = Object.keys(ships).length;
     prog(total, 0)
@@ -303,62 +303,62 @@ function makeShipSpec(ships, modules, prog){
                 max_art_range: ssf.maxArtilleryRange
             }
         }
-        prog(total, index+1);
+        prog(total, index + 1);
     })
     return specs
 }
 
 const app = angular.module('fetchShipsSpec', []);
 
-app.controller('progress', ['$scope', '$timeout', function($scope, $timeout){
+app.controller('progress', ['$scope', '$timeout', function ($scope, $timeout) {
     $scope.progs = [];
     const api = {};
     let ships;
-    const loadEnvProg = setProgress($scope ,$timeout, 'Loading preferences');
+    const loadEnvProg = setProgress($scope, $timeout, 'Loading preferences');
     loadEnvProg(1, 0);
     fetch('/api/env')
-    .then((response) => {
-        return response.json();
-    })
-    .then((env) => {
-        api.key = env.API_KEY;
-        api.url = env.API_URL;
-        loadEnvProg(1, 1);
-    })
-    .then(() => { // Fetch ship list from API
-        const fetchShipProg = setProgress($scope ,$timeout, 'Retrieving list of available warships');
-        return fetchShips(api, fetchShipProg)
-    })
-    .then((shipsData) => { // Save API data into json file
-        const saveShipProg = setProgress($scope ,$timeout, 'saving');
-        saveJson(shipsData, shipSpecDir + 'ships.json', saveShipProg)
-    })
-    .then(() => { // Fetch modules list from API
-        const fetchModulesProg = setProgress($scope ,$timeout, 'Retrieving list of available modules');
-        return fetchModules(api, fetchModulesProg);
-    })
-    .then((modulesData) => { // Save API data into json file
-        const saveModulesProg = setProgress($scope ,$timeout, 'saving');
-        saveJson(modulesData, shipSpecDir + 'modules.json', saveModulesProg)
-    })
-    .then(() => { // Load ships json
-        const loadShipsProg = setProgress($scope ,$timeout, 'Loading saved ships data');
-        return loadJson(shipSpecDir + 'ships.json', loadShipsProg);
-    })
-    .then((data) => { // Load modules json
-        ships = data;
-        const loadModulesProg = setProgress($scope ,$timeout, 'Loading saved modules data');
-        return loadJson(shipSpecDir + 'modules.json', loadModulesProg)
-    })
-    .then((modules) => {
-        const makeShipSpecProg = setProgress($scope ,$timeout, 'Calculating ship specifications based on API data');
-        return makeShipSpec(ships, modules, makeShipSpecProg);
-    })
-    .then((specsData) => {
-        const saveSpecsProg = setProgress($scope ,$timeout, 'saving(specs.json)');
-        saveJson(specsData, shipSpecDir + 'specs.json', saveSpecsProg)
-    })
-    .catch((e) => {
-        console.error(e);
-    });
+        .then((response) => {
+            return response.json();
+        })
+        .then((env) => {
+            api.key = env.API_KEY;
+            api.url = env.API_URL;
+            loadEnvProg(1, 1);
+        })
+        .then(() => { // Fetch ships list from API
+            const fetchShipProg = setProgress($scope, $timeout, 'Retrieving list of available warships');
+            return fetchShips(api, fetchShipProg)
+        })
+        .then((shipsData) => { // Save ships data into json file
+            const saveShipProg = setProgress($scope, $timeout, 'saving(ships.json)');
+            saveJson(shipsData, shipSpecDir + 'ships.json', saveShipProg)
+        })
+        .then(() => { // Fetch modules list from API
+            const fetchModulesProg = setProgress($scope, $timeout, 'Retrieving list of available modules');
+            return fetchModules(api, fetchModulesProg);
+        })
+        .then((modulesData) => { // Save modules data into json file
+            const saveModulesProg = setProgress($scope, $timeout, 'saving(modules.json)');
+            saveJson(modulesData, shipSpecDir + 'modules.json', saveModulesProg)
+        })
+        .then(() => { // Load ships json
+            const loadShipsProg = setProgress($scope, $timeout, 'Loading saved ships data');
+            return loadJson(shipSpecDir + 'ships.json', loadShipsProg);
+        })
+        .then((data) => { // Load modules json
+            ships = data;
+            const loadModulesProg = setProgress($scope, $timeout, 'Loading saved modules data');
+            return loadJson(shipSpecDir + 'modules.json', loadModulesProg)
+        })
+        .then((modules) => {
+            const makeShipSpecProg = setProgress($scope, $timeout, 'Calculating ship specifications based on API data');
+            return makeShipSpec(ships, modules, makeShipSpecProg);
+        })
+        .then((specsData) => {
+            const saveSpecsProg = setProgress($scope, $timeout, 'saving(specs.json)');
+            saveJson(specsData, shipSpecDir + 'specs.json', saveSpecsProg)
+        })
+        .catch((e) => {
+            console.error(e);
+        });
 }]);
