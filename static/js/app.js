@@ -1674,7 +1674,7 @@ app.controller('TeamStatsCtrl', ['$scope', '$translate', '$filter', '$rootScope'
 							return 0;
 						});
 
-						const shipSpecs = fetch('./js/ship_spec/specs.json').then(data => data.json());
+						const shipSpecs = fetch('./js/cache/specs.json').then(data => data.json());
 						shipSpecs.then((data) => {
 							kariload.forEach((player, i) => {
 								const detect = data[player.shipId].spec.detect;

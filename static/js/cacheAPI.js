@@ -1,4 +1,4 @@
-const shipSpecDir = 'js/ship_spec/';
+const cacheDir = 'js/cache/';
 
 const coolTime = 1000 / 5; // millisecond / request, Standalone applications are limited to 10 requests per second
 const coolTimer = () => {
@@ -212,7 +212,7 @@ class ShipSpecFactory {
     calcBestDetect() {
         const upgCoef = this.upgrades_.includes(4265791408) ? 0.9 : 1;
         // base * Commanders'Skill * ConcealmentUpgrade
-        return Math.round(this.defDetect_ * 0.9 * upgCoef * 100) / 100;
+        return Math.round(this.defDetect_ * 0.9 * upgCoef * 10) / 10;
     }
 
     selectFastestEngineSpeed() {
@@ -331,7 +331,7 @@ app.controller('progress', ['$scope', '$timeout', function ($scope, $timeout) {
         })
         .then((shipsData) => { // Save ships data into json file
             const saveShipProg = setProgress($scope, $timeout, 'saving(ships.json)');
-            saveJson(shipsData, shipSpecDir + 'ships.json', saveShipProg)
+            saveJson(shipsData, cacheDir + 'ships.json', saveShipProg)
         })
         .then(() => { // Fetch modules list from API
             const fetchModulesProg = setProgress($scope, $timeout, 'Retrieving list of available modules');
@@ -339,16 +339,16 @@ app.controller('progress', ['$scope', '$timeout', function ($scope, $timeout) {
         })
         .then((modulesData) => { // Save modules data into json file
             const saveModulesProg = setProgress($scope, $timeout, 'saving(modules.json)');
-            saveJson(modulesData, shipSpecDir + 'modules.json', saveModulesProg)
+            saveJson(modulesData, cacheDir + 'modules.json', saveModulesProg)
         })
         .then(() => { // Load ships json
             const loadShipsProg = setProgress($scope, $timeout, 'Loading saved ships data');
-            return loadJson(shipSpecDir + 'ships.json', loadShipsProg);
+            return loadJson(cacheDir + 'ships.json', loadShipsProg);
         })
         .then((data) => { // Load modules json
             ships = data;
             const loadModulesProg = setProgress($scope, $timeout, 'Loading saved modules data');
-            return loadJson(shipSpecDir + 'modules.json', loadModulesProg)
+            return loadJson(cacheDir + 'modules.json', loadModulesProg)
         })
         .then((modules) => {
             const makeShipSpecProg = setProgress($scope, $timeout, 'Calculating ship specifications based on API data');
@@ -356,7 +356,7 @@ app.controller('progress', ['$scope', '$timeout', function ($scope, $timeout) {
         })
         .then((specsData) => {
             const saveSpecsProg = setProgress($scope, $timeout, 'saving(specs.json)');
-            saveJson(specsData, shipSpecDir + 'specs.json', saveSpecsProg)
+            saveJson(specsData, cacheDir + 'specs.json', saveSpecsProg)
         })
         .catch((e) => {
             console.error(e);
