@@ -19,12 +19,19 @@
 	<script src="http://code.jquery.com/jquery-1.12.3.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
 	<script type="text/javascript" src="js/imgpreview.js"></script>
+	<style>
+		.wrapper {
+			width: 500px;
+		}
+	</style>
 </head>
-<body ng-app="fetchShipsSpec">
+<body ng-app="cacheAPI">
 	<div class="wrapper" ng-controller="progress">
+		<h2 ng-style="{color: stausColor}">{{status}}</h2>
 		<ul>
 			<li ng-repeat="prog in progs">{{prog.message}}: {{prog.percentage}}%({{prog.count}}/{{prog.total}})</li>
 		</ul>
+		<p>{{error}}</p>
 	</div>
 	<script type="text/javascript" src="js/cacheAPI.js"></script>
 </body>

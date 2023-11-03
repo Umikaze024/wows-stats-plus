@@ -308,9 +308,10 @@ function makeShipSpec(ships, modules, prog) {
     return specs
 }
 
-const app = angular.module('fetchShipsSpec', []);
+const app = angular.module('cacheAPI', []);
 
 app.controller('progress', ['$scope', '$timeout', function ($scope, $timeout) {
+    $timeout(() => {$scope.status = 'Running';  $scope.stausColor = 'white'})
     $scope.progs = [];
     const api = {};
     let ships;
@@ -330,7 +331,7 @@ app.controller('progress', ['$scope', '$timeout', function ($scope, $timeout) {
             return fetchShips(api, fetchShipProg)
         })
         .then((shipsData) => { // Save ships data into json file
-            const saveShipProg = setProgress($scope, $timeout, 'saving(ships.json)');
+            const saveShipProg = setProgress($scope, $timeout, 'Saving (ships.json)');
             saveJson(shipsData, cacheDir + 'ships.json', saveShipProg)
         })
         .then(() => { // Fetch modules list from API
@@ -338,7 +339,7 @@ app.controller('progress', ['$scope', '$timeout', function ($scope, $timeout) {
             return fetchModules(api, fetchModulesProg);
         })
         .then((modulesData) => { // Save modules data into json file
-            const saveModulesProg = setProgress($scope, $timeout, 'saving(modules.json)');
+            const saveModulesProg = setProgress($scope, $timeout, 'Saving (modules.json)');
             saveJson(modulesData, cacheDir + 'modules.json', saveModulesProg)
         })
         .then(() => { // Load ships json
@@ -350,15 +351,22 @@ app.controller('progress', ['$scope', '$timeout', function ($scope, $timeout) {
             const loadModulesProg = setProgress($scope, $timeout, 'Loading saved modules data');
             return loadJson(cacheDir + 'modules.json', loadModulesProg)
         })
-        .then((modules) => {
+        .then((modules) => { // Make ship specifications data
             const makeShipSpecProg = setProgress($scope, $timeout, 'Calculating ship specifications based on API data');
             return makeShipSpec(ships, modules, makeShipSpecProg);
         })
-        .then((specsData) => {
-            const saveSpecsProg = setProgress($scope, $timeout, 'saving(specs.json)');
+        .then((specsData) => { // Save ship specifications data
+            const saveSpecsProg = setProgress($scope, $timeout, 'Saving (specs.json)');
             saveJson(specsData, cacheDir + 'specs.json', saveSpecsProg)
+        }).then(() => {
+            $timeout(() => {$scope.status = 'Completed Successfully'; $scope.stausColor = 'green'})
         })
         .catch((e) => {
+            $timeout(() => {
+                $scope.status = 'Error Occurred';
+                $scope.stausColor = 'red';
+                $scope.error = 'A problem occurred while performing the above process';
+            })
             console.error(e);
         });
 }]);
