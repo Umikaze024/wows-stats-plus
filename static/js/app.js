@@ -1674,6 +1674,15 @@ app.controller('TeamStatsCtrl', ['$scope', '$translate', '$filter', '$rootScope'
 							return 0;
 						});
 
+						const shipSpecs = fetch('./js/cache/specs.json').then(data => data.json());
+						shipSpecs.then((data) => {
+							kariload.forEach((player, i) => {
+								const detect = data[player.shipId].spec.detect;
+								const concealmentInfo = 'Detectability Range: '+ detect.default + 'km (best: ' + detect.best + 'km)';
+								kariload[i].concInfo = concealmentInfo
+							})
+						})
+
 						for (var i=0; i<kariload.length; i++) {
 							var player = kariload[i];
 							try {

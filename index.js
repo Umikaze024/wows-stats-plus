@@ -18,7 +18,7 @@ if (capture_flag === 'true') {
 }
 
 // create application/json parser
-var jsonParser = bodyParser.json();
+var jsonParser = bodyParser.json({limit:'10mb'});
 
 // Get latest seasons(rank battle) number
 /* var latest_season_num = 0;
@@ -192,6 +192,18 @@ router.post('/config', jsonParser, function(req, res) {
 	}
 	else
 		res.sendStatus(400);
+});
+
+// Save json file to local storage on this PC
+router.post('/save_json', jsonParser, function(req, res) {
+	const fsPromises = fs.promises;
+	fsPromises.writeFile('static/' + req.get('File-Path'), JSON.stringify(req.body, null, ""))
+		.then(() => {
+			res.send('done.')
+		})
+		.catch((err) => {
+			res.status(500).send(err);
+		})
 });
 
 

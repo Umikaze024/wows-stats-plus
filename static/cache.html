@@ -1,0 +1,38 @@
+<!doctype html>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<meta http-equiv="Content-Script-Type" content="text/javascript">
+	<meta http-equiv="Content-Style-Type" content="text/css">
+	<title>wows stats plus</title>
+	<link rel="stylesheet" href="css/app.css">
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.6/angular.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.5/angular-animate.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.6/angular-cookies.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.5/angular-sanitize.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/angular-translate/2.15.0/angular-translate.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/angular-translate-storage-cookie/2.15.0/angular-translate-storage-cookie.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/angular-translate-storage-local/2.15.0/angular-translate-storage-local.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/angular-translate-loader-static-files/2.15.0/angular-translate-loader-static-files.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/angular-translate-handler-log/2.15.0/angular-translate-handler-log.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment-with-locales.min.js"></script>
+	<script src="http://code.jquery.com/jquery-1.12.3.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
+	<script type="text/javascript" src="js/imgpreview.js"></script>
+	<style>
+		.wrapper {
+			width: 500px;
+		}
+	</style>
+</head>
+<body ng-app="cacheAPI">
+	<div class="wrapper" ng-controller="progress">
+		<h2 ng-style="{color: stausColor}">{{status}}</h2>
+		<ul>
+			<li ng-repeat="prog in progs">{{prog.message}}: {{prog.percentage}}%({{prog.count}}/{{prog.total}})</li>
+		</ul>
+		<p>{{error}}</p>
+	</div>
+	<script type="text/javascript" src="js/cacheAPI.js"></script>
+</body>
+</html>
